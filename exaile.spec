@@ -53,6 +53,13 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc TODO
 %attr(755,root,root) %{_bindir}/%{name}
-%{_datadir}/%{name}/
+%dir %{_datadir}/%{name}
+%attr(755,root,root) %{_datadir}/%{name}/exaile.py
+%{_datadir}/%{name}/exaile.glade
+%{_datadir}/%{name}/mmkeys.so
+%{_datadir}/%{name}/images
+%{_datadir}/%{name}/po
+%{_datadir}/%{name}/sql
+%{_datadir}/%{name}/xl
 %{_desktopdir}/*
 %{_pixmapsdir}/*

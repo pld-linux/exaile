@@ -9,7 +9,7 @@ License:	GPL
 Group:		Applications/X11
 URL:		http://www.exaile.org/
 BuildRequires:	python-pygtk-devel >= 2.8
-Requires:	dbus-python >= 0.71
+Requires:	python-dbus >= 0.71
 Requires:	gstreamer-plugins-base >= 0.10
 Requires:	gstreamer-plugins-good >= 0.10
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)

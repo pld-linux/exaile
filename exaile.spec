@@ -2,7 +2,7 @@ Summary:	A powerful GTK+2 media player
 Summary(pl):	Potê¿ny odtwarzacz multimediów oparty na GTK+2
 Name:		exaile
 Version:	0.2.8
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Applications/Multimedia
 Source0:	http://www.exaile.org/files/%{name}_%{version}.tar.gz
@@ -67,7 +67,8 @@ Niektóre mo¿liwo¶ci to:
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT \
+	LIBDIR=%{_libdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT

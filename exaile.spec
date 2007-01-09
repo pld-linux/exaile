@@ -1,17 +1,20 @@
 Summary:	A powerful GTK+2 media player
 Summary(pl):	Potê¿ny odtwarzacz multimediów oparty na GTK+2
 Name:		exaile
-Version:	0.2.5
+Version:	0.2.8
 Release:	1
 License:	GPL
 Group:		X11/Applications/Multimedia
 Source0:	http://www.exaile.org/files/%{name}_%{version}.tar.gz
-# Source0-md5:	f700d561e3cf756bcdcf4c006b132d51
+# Source0-md5:	a07d5acdebbc42a72e297963f5aec249
 Patch0:		%{name}-python-2.5.patch
+Patch1:		%{name}-FHS.patch
 URL:		http://www.exaile.org/
-BuildRequires:	FHS-fix
 BuildRequires:	python-pygtk-devel >= 2.8
 Requires:	python-dbus >= 0.71
+Requires:	python-gstreamer
+Requires:	python-mutagen
+Requires:	python-sqlite
 Requires:	gstreamer-plugins-base >= 0.10
 Requires:	gstreamer-plugins-good >= 0.10
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -55,6 +58,7 @@ Niektóre mo¿liwo¶ci to:
 %prep
 %setup -q -n %{name}_%{version}
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__make}
@@ -75,10 +79,11 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/%{name}
 %attr(755,root,root) %{_datadir}/%{name}/exaile.py
 %{_datadir}/%{name}/exaile.glade
-# FIXME: move ELF to %{_libdir}
-%attr(755,root,root) %{_datadir}/%{name}/mmkeys.so
+%dir %{_libdir}/%{name}
+%attr(755,root,root) %{_libdir}/%{name}/mmkeys.so
 %{_datadir}/%{name}/images
 %{_datadir}/%{name}/po
+%{_datadir}/%{name}/plugins
 %{_datadir}/%{name}/sql
 %{_datadir}/%{name}/xl
 %{_desktopdir}/*.desktop

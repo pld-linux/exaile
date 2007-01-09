@@ -79,8 +79,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/%{name}
 %attr(755,root,root) %{_datadir}/%{name}/exaile.py
 %{_datadir}/%{name}/exaile.glade
-%dir %{_libdir}/%{name}
-%attr(755,root,root) %{_libdir}/%{name}/mmkeys.so
+%attr(755,root,root) %{python_sitearch}/mmkeys.so
 %{_datadir}/%{name}/images
 %{_datadir}/%{name}/po
 %{_datadir}/%{name}/plugins

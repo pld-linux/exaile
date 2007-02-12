@@ -1,5 +1,5 @@
 Summary:	A powerful GTK+2 media player
-Summary(pl):	PotÍøny odtwarzacz multimediÛw oparty na GTK+2
+Summary(pl.UTF-8):   Potƒô≈ºny odtwarzacz multimedi√≥w oparty na GTK+2
 Name:		exaile
 Version:	0.2.8
 Release:	2
@@ -37,23 +37,23 @@ Some of the features are:
 - downloading of guitar tabs from fretplay.com
 - submitting played tracks on the iPod to last.fm
 
-%description -l pl
-Exaile to odtwarzacz multimediÛw maj±cy byÊ podobny do AmaroKa, ale
-dla GTK+2. £±czy wiele dobrych cech AmaroKa (i innych odtwarzaczy
-multimediÛw).
+%description -l pl.UTF-8
+Exaile to odtwarzacz multimedi√≥w majƒÖcy byƒá podobny do AmaroKa, ale
+dla GTK+2. ≈ÅƒÖczy wiele dobrych cech AmaroKa (i innych odtwarzaczy
+multimedi√≥w).
 
-NiektÛre moøliwo∂ci to:
-- automatyczne pobieranie ok≥adki albumu
-- obs≥uga duøych bibliotek
-- pobieranie tekstÛw utworÛw
+Niekt√≥re mo≈ºliwo≈õci to:
+- automatyczne pobieranie ok≈Çadki albumu
+- obs≈Çuga du≈ºych bibliotek
+- pobieranie tekst√≥w utwor√≥w
 - informacje o wykonawcy/albumie z wikipedii
-- obs≥uga last.fm
-- opcjonalna obs≥uga iPoda (przy zainstalowanym pakiecie python-gpod)
-- wbudowana przegl±darka katalogÛw shoutcastÛw
-- playlisty z zak≥adkami
-- czarna lista ∂cieøek
-- ∂ci±ganie tabulatur gitarowych z fretplay.com
-- przesy≥anie ∂cieøek odtworzonych na iPodzie do last.fm
+- obs≈Çuga last.fm
+- opcjonalna obs≈Çuga iPoda (przy zainstalowanym pakiecie python-gpod)
+- wbudowana przeglƒÖdarka katalog√≥w shoutcast√≥w
+- playlisty z zak≈Çadkami
+- czarna lista ≈õcie≈ºek
+- ≈õciƒÖganie tabulatur gitarowych z fretplay.com
+- przesy≈Çanie ≈õcie≈ºek odtworzonych na iPodzie do last.fm
 
 %prep
 %setup -q -n %{name}_%{version}

@@ -1,5 +1,5 @@
 Summary:	A powerful GTK+2 media player
-Summary(pl.UTF-8):   Potężny odtwarzacz multimediów oparty na GTK+2
+Summary(pl.UTF-8):	Potężny odtwarzacz multimediów oparty na GTK+2
 Name:		exaile
 Version:	0.2.8
 Release:	2

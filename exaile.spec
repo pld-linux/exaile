@@ -2,7 +2,7 @@ Summary:	A powerful GTK+2 media player
 Summary(pl.UTF-8):	Potężny odtwarzacz multimediów oparty na GTK+2
 Name:		exaile
 Version:	0.2.10b
-Release:	2
+Release:	1
 License:	GPL
 Group:		X11/Applications/Multimedia
 Source0:	http://www.exaile.org/files/%{name}_%{version}.tar.gz

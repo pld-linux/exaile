@@ -1,12 +1,12 @@
 Summary:	A powerful GTK+2 media player
 Summary(pl.UTF-8):	Potężny odtwarzacz multimediów oparty na GTK+2
 Name:		exaile
-Version:	0.2.8
+Version:	0.2.10b
 Release:	2
 License:	GPL
 Group:		X11/Applications/Multimedia
 Source0:	http://www.exaile.org/files/%{name}_%{version}.tar.gz
-# Source0-md5:	a07d5acdebbc42a72e297963f5aec249
+# Source0-md5:	8d8dac438947327a32094099bcb72cb6
 Patch0:		%{name}-python-2.5.patch
 Patch1:		%{name}-FHS.patch
 URL:		http://www.exaile.org/
@@ -57,7 +57,7 @@ Niektóre możliwości to:
 
 %prep
 %setup -q -n %{name}_%{version}
-%patch0 -p1
+#%patch0 -p1
 %patch1 -p1
 
 %build

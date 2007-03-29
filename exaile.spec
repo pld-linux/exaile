@@ -14,6 +14,7 @@ BuildRequires:	python-pygtk-devel >= 2.8
 Requires:	python-dbus >= 0.71
 Requires:	python-gstreamer
 Requires:	python-mutagen
+Requires:	python-pygtk-glade
 Requires:	python-sqlite
 Requires:	gstreamer-plugins-base >= 0.10
 Requires:	gstreamer-plugins-good >= 0.10

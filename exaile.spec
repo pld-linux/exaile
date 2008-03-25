@@ -3,12 +3,12 @@ Summary(pl.UTF-8):	Potężny odtwarzacz multimediów oparty na GTK+2
 Name:		exaile
 Version:	0.2.12
 Release:	0.1
+# GPL v2 in COPYING; GPL v1+ in license.txt
 License:	GPL
 Group:		X11/Applications/Multimedia
 Source0:	http://www.exaile.org/files/%{name}_%{version}~gutsyppa2.tar.gz
 # Source0-md5:	95efa2899ea5dfd251e933c36d1849ed
-Patch0:		%{name}-python-2.5.patch
-Patch1:		%{name}-FHS.patch
+Patch0:		%{name}-FHS.patch
 URL:		http://www.exaile.org/
 BuildRequires:	python-pygtk-devel >= 2.8
 Requires:	python-dbus >= 0.71
@@ -58,8 +58,7 @@ Niektóre możliwości to:
 
 %prep
 %setup -q
-#%patch0 -p1
-%patch1 -p1
+%patch0 -p1
 
 %build
 %{__make}
@@ -76,7 +75,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc TODO
+%doc changelog
 %attr(755,root,root) %{_bindir}/%{name}
 %dir %{_datadir}/%{name}
 %attr(755,root,root) %{_datadir}/%{name}/exaile.py

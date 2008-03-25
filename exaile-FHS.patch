@@ -1,10 +1,10 @@
 --- exaile_0.2.8/Makefile.orig	2007-01-09 07:24:39.000000000 +0000
 +++ exaile_0.2.8/Makefile	2007-01-09 07:25:58.000000000 +0000
 @@ -27,7 +27,8 @@
- 	install -m 644 exaile.py $(DESTDIR)$(PREFIX)/share/exaile
  	install -m 644 exaile.glade $(DESTDIR)$(PREFIX)/share/exaile
+ 	install -m 644 equalizer.ini $(DESTDIR)$(PREFIX)/share/exaile
  	install -m 644 sql/*.sql $(DESTDIR)$(PREFIX)/share/exaile/sql
--	install -m 644 mmkeys.so $(DESTDIR)$(PREFIX)/share/exaile
+-	-install -m 644 mmkeys.so $(DESTDIR)$(PREFIX)$(LIBDIR)/exaile
 +	install -d $(DESTDIR)$(LIBDIR)/python2.5/site-packages/
 +	install -m 644 mmkeys.so $(DESTDIR)$(LIBDIR)/python2.5/site-packages/
  	install -m 644 images/*.png $(DESTDIR)$(PREFIX)/share/exaile/images

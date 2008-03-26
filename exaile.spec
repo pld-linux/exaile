@@ -8,7 +8,6 @@ License:	GPL
 Group:		X11/Applications/Multimedia
 Source0:	http://www.exaile.org/files/%{name}_%{version}~gutsyppa2.tar.gz
 # Source0-md5:	95efa2899ea5dfd251e933c36d1849ed
-Patch0:		%{name}-FHS.patch
 URL:		http://www.exaile.org/
 BuildRequires:	python-pygtk-devel >= 2.8
 Requires:	python-dbus >= 0.71
@@ -58,7 +57,6 @@ Niektóre możliwości to:
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %{__make}
@@ -66,14 +64,56 @@ Niektóre możliwości to:
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	LIBDIR=%{_libdir}
+install -d $RPM_BUILD_ROOT%{_bindir}
+install -d $RPM_BUILD_ROOT%{python_sitearch}
+install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/data
+install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/images/default_theme
+install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/lib
+install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/sql
+install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/xl/{gui,media,panels,plugins}
+install -d $RPM_BUILD_ROOT%{_mandir}/man1
+install -d $RPM_BUILD_ROOT%{_desktopdir}
+install -d $RPM_BUILD_ROOT%{_pixmapsdir}
+
+cat > $RPM_BUILD_ROOT%{_bindir}/%{name} <<EOF
+#!/bin/sh
+cd %{_datadir}/%{name}
+exec python %{_datadir}/%{name}/exaile.py $@
+EOF
+
+install mmkeys.so $RPM_BUILD_ROOT%{python_sitearch}
+install exaile.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install exaile.py $RPM_BUILD_ROOT%{_datadir}/%{name}
+install exaile.glade $RPM_BUILD_ROOT%{_datadir}/%{name}
+install equalizer.ini $RPM_BUILD_ROOT%{_datadir}/%{name}
+install data/settings_meta.ini $RPM_BUILD_ROOT%{_datadir}/%{name}/data
+install lib/*.py $RPM_BUILD_ROOT%{_datadir}/%{name}/lib
+install sql/*.sql $RPM_BUILD_ROOT%{_datadir}/%{name}/sql
+install xl/*.py $RPM_BUILD_ROOT%{_datadir}/%{name}/xl
+install xl/gui/*.py $RPM_BUILD_ROOT%{_datadir}/%{name}/xl/gui
+install xl/media/*.py $RPM_BUILD_ROOT%{_datadir}/%{name}/xl/media
+install xl/panels/*.py $RPM_BUILD_ROOT%{_datadir}/%{name}/xl/panels
+install xl/plugins/*.py $RPM_BUILD_ROOT%{_datadir}/%{name}/xl/plugins
+install xl/plugins/*.glade $RPM_BUILD_ROOT%{_datadir}/%{name}/xl/plugins
+install images/*.png $RPM_BUILD_ROOT%{_datadir}/%{name}/images
+install images/default_theme/*.png \
+	$RPM_BUILD_ROOT%{_datadir}/%{name}/images/default_theme
+install images/largeicon.png $RPM_BUILD_ROOT%{_pixmapsdir}
+install exaile.desktop $RPM_BUILD_ROOT%{_desktopdir}
+
+cd po
+for d in */LC_MESSAGES; do
+	install -d $RPM_BUILD_ROOT%{_localedir}/$d
+	install $d/exaile.mo $RPM_BUILD_ROOT%{_localedir}/$d
+done
+cd ..
+
+%find_lang %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files
+%files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc changelog
 %attr(755,root,root) %{_bindir}/%{name}
@@ -81,10 +121,26 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_datadir}/%{name}/exaile.py
 %{_datadir}/%{name}/exaile.glade
 %attr(755,root,root) %{python_sitearch}/mmkeys.so
+%dir %{_datadir}/%{name}/data
+%{_datadir}/%{name}/data/settings_meta.ini
+%{_datadir}/%{name}/equalizer.ini
 %{_datadir}/%{name}/images
-%{_datadir}/%{name}/po
-%{_datadir}/%{name}/plugins
-%{_datadir}/%{name}/sql
-%{_datadir}/%{name}/xl
+#{_datadir}/%{name}/plugins
+%dir %{_datadir}/%{name}/lib
+%{_datadir}/%{name}/lib/*.py
+%dir %{_datadir}/%{name}/sql
+%{_datadir}/%{name}/sql/*.sql
+%dir %{_datadir}/%{name}/xl
+%{_datadir}/%{name}/xl/*.py
+%dir %{_datadir}/%{name}/xl/gui
+%{_datadir}/%{name}/xl/gui/*.py
+%dir %{_datadir}/%{name}/xl/media
+%{_datadir}/%{name}/xl/media/*.py
+%dir %{_datadir}/%{name}/xl/panels
+%{_datadir}/%{name}/xl/panels/*.py
+%dir %{_datadir}/%{name}/xl/plugins
+%{_datadir}/%{name}/xl/plugins/*.py
+%{_datadir}/%{name}/xl/plugins/plugins.glade
 %{_desktopdir}/*.desktop
+%{_mandir}/man1/exaile.1*
 %{_pixmapsdir}/*

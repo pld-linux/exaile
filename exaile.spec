@@ -2,7 +2,7 @@ Summary:	A powerful GTK+2 media player
 Summary(pl.UTF-8):	Potężny odtwarzacz multimediów oparty na GTK+2
 Name:		exaile
 Version:	0.2.12
-Release:	0.2
+Release:	0.3
 # GPL v2 in COPYING; GPL v1+ in license.txt
 License:	GPL
 Group:		X11/Applications/Multimedia
@@ -17,6 +17,9 @@ Requires:	python-pygtk-glade
 Requires:	python-sqlite
 Requires:	gstreamer-plugins-base >= 0.10
 Requires:	gstreamer-plugins-good >= 0.10
+Suggests:	brasero
+Suggests:	k3b
+Suggests:	serpentine
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description

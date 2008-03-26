@@ -13,6 +13,8 @@ Group:		X11/Applications/Multimedia
 Source0:	http://www.exaile.org/files/%{name}_%{version}~gutsyppa2.tar.gz
 # Source0-md5:	95efa2899ea5dfd251e933c36d1849ed
 URL:		http://www.exaile.org/
+BuildRequires:	gettext-devel
+BuildRequires:	intltool
 BuildRequires:	python-pygtk-devel >= 2.8
 Requires:	python-dbus >= 0.71
 Requires:	python-gstreamer

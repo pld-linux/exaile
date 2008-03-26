@@ -15,11 +15,11 @@ Source0:	http://www.exaile.org/files/%{name}_%{version}~gutsyppa2.tar.gz
 URL:		http://www.exaile.org/
 BuildRequires:	gettext-devel
 BuildRequires:	intltool
-BuildRequires:	python-pygtk-devel >= 2.8
+BuildRequires:	python-pygtk-devel >= 2:2.8
 Requires:	python-dbus >= 0.71
 Requires:	python-gstreamer
 Requires:	python-mutagen
-Requires:	python-pygtk-glade
+Requires:	python-pygtk-glade >= 2:2.8
 Requires:	python-sqlite
 Requires:	gstreamer-plugins-base >= 0.10
 Requires:	gstreamer-plugins-good >= 0.10

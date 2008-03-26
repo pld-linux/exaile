@@ -1,11 +1,13 @@
 # TODO:
 #	package plugins/*
+#	segfault on exit (python: Python/pystate.c:563: PyGILState_Ensure: Assertion `autoInterpreterState' failed)
+#
 Summary:	A powerful GTK+2 media player
 Summary(pl.UTF-8):	Potężny odtwarzacz multimediów oparty na GTK+2
 Name:		exaile
 Version:	0.2.12
-Release:	0.4
-# GPL v2 in COPYING; GPL v1+ in license.txt
+Release:	0.5
+# GPL v2 in COPYING; GPL v1+ in license.txt; Artistic/Perl in lib/wmainfo.py
 License:	GPL
 Group:		X11/Applications/Multimedia
 Source0:	http://www.exaile.org/files/%{name}_%{version}~gutsyppa2.tar.gz
@@ -21,7 +23,7 @@ Requires:	gstreamer-plugins-base >= 0.10
 Requires:	gstreamer-plugins-good >= 0.10
 Suggests:	brasero
 Suggests:	k3b
-Suggests:	python-gnome-extras
+Suggests:	python-gnome-extras-mozilla
 Suggests:	serpentine
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 

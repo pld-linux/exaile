@@ -1,17 +1,17 @@
 # TODO:
-#	package plugins/*
+#	separate plugins/*
 #	segfault on exit (python: Python/pystate.c:563: PyGILState_Ensure: Assertion `autoInterpreterState' failed)
 #
 Summary:	A powerful GTK+2 media player
 Summary(pl.UTF-8):	Potężny odtwarzacz multimediów oparty na GTK+2
 Name:		exaile
-Version:	0.2.12
+Version:	0.2.13
 Release:	1
 # GPL v2 in COPYING; GPL v1+ in license.txt; Artistic/Perl in lib/wmainfo.py
 License:	GPL
 Group:		X11/Applications/Multimedia
-Source0:	http://www.exaile.org/files/%{name}_%{version}~gutsyppa2.tar.gz
-# Source0-md5:	95efa2899ea5dfd251e933c36d1849ed
+Source0:	http://www.exaile.org/files/%{name}_%{version}.tar.gz
+# Source0-md5:	3caf9381691274a9de1fda203c43fb4f
 URL:		http://www.exaile.org/
 BuildRequires:	gettext-devel
 BuildRequires:	intltool
@@ -66,7 +66,7 @@ Niektóre możliwości to:
 - przesyłanie ścieżek odtworzonych na iPodzie do last.fm
 
 %prep
-%setup -q
+%setup -q -n %{name}_%{version}
 
 # there's bigger and newer es.po
 rm -f po/es_ES.po
@@ -90,6 +90,7 @@ install -d $RPM_BUILD_ROOT%{python_sitearch}
 install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/data
 install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/images/default_theme
 install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/lib
+install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/plugins/{daap-share,didyouknow,httpserver,httpserver/data,icastplugin}
 install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/sql
 install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/xl/{gui,media,panels,plugins}
 install -d $RPM_BUILD_ROOT%{_mandir}/man1
@@ -110,6 +111,12 @@ install equalizer.ini $RPM_BUILD_ROOT%{_datadir}/%{name}
 install data/settings_meta.ini $RPM_BUILD_ROOT%{_datadir}/%{name}/data
 install lib/*.py $RPM_BUILD_ROOT%{_datadir}/%{name}/lib
 install sql/*.sql $RPM_BUILD_ROOT%{_datadir}/%{name}/sql
+install plugins/*.py $RPM_BUILD_ROOT%{_datadir}/%{name}/plugins
+install plugins/daap-share/*.{py,glade} $RPM_BUILD_ROOT%{_datadir}/%{name}/plugins/daap-share
+install plugins/didyouknow/*.{py,glade} $RPM_BUILD_ROOT%{_datadir}/%{name}/plugins/didyouknow
+install plugins/httpserver/*.py $RPM_BUILD_ROOT%{_datadir}/%{name}/plugins/httpserver
+install plugins/httpserver/data/*.* $RPM_BUILD_ROOT%{_datadir}/%{name}/plugins/httpserver/data
+install plugins/icastplugin/*.{py,glade} $RPM_BUILD_ROOT%{_datadir}/%{name}/plugins/icastplugin
 install xl/*.py $RPM_BUILD_ROOT%{_datadir}/%{name}/xl
 install xl/gui/*.py $RPM_BUILD_ROOT%{_datadir}/%{name}/xl/gui
 install xl/media/*.py $RPM_BUILD_ROOT%{_datadir}/%{name}/xl/media
@@ -146,7 +153,18 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/%{name}/data/settings_meta.ini
 %{_datadir}/%{name}/equalizer.ini
 %{_datadir}/%{name}/images
-#{_datadir}/%{name}/plugins
+%dir %{_datadir}/%{name}/plugins
+%{_datadir}/%{name}/plugins/*.py
+%dir %{_datadir}/%{name}/plugins/daap-share
+%{_datadir}/%{name}/plugins/daap-share/*.*
+%dir %{_datadir}/%{name}/plugins/didyouknow
+%{_datadir}/%{name}/plugins/didyouknow/*.*
+%dir %{_datadir}/%{name}/plugins/httpserver
+%{_datadir}/%{name}/plugins/httpserver/*.*
+%dir %{_datadir}/%{name}/plugins/httpserver/data
+%{_datadir}/%{name}/plugins/httpserver/data/*.*
+%dir %{_datadir}/%{name}/plugins/icastplugin
+%{_datadir}/%{name}/plugins/icastplugin/*.*
 %dir %{_datadir}/%{name}/lib
 %{_datadir}/%{name}/lib/*.py
 %dir %{_datadir}/%{name}/sql

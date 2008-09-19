@@ -6,7 +6,7 @@ Summary:	A powerful GTK+2 media player
 Summary(pl.UTF-8):	Potężny odtwarzacz multimediów oparty na GTK+2
 Name:		exaile
 Version:	0.2.13
-Release:	1
+Release:	2
 # GPL v2 in COPYING; GPL v1+ in license.txt; Artistic/Perl in lib/wmainfo.py
 License:	GPL
 Group:		X11/Applications/Multimedia
@@ -126,7 +126,7 @@ install xl/plugins/*.glade $RPM_BUILD_ROOT%{_datadir}/%{name}/xl/plugins
 install images/*.png $RPM_BUILD_ROOT%{_datadir}/%{name}/images
 install images/default_theme/*.png \
 	$RPM_BUILD_ROOT%{_datadir}/%{name}/images/default_theme
-install images/largeicon.png $RPM_BUILD_ROOT%{_pixmapsdir}
+install images/largeicon.png $RPM_BUILD_ROOT%{_pixmapsdir}/%{name}.png
 install exaile.desktop $RPM_BUILD_ROOT%{_desktopdir}
 
 cd po

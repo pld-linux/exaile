@@ -5,13 +5,13 @@
 Summary:	A powerful GTK+2 media player
 Summary(pl.UTF-8):	Potężny odtwarzacz multimediów oparty na GTK+2
 Name:		exaile
-Version:	0.2.13
-Release:	2
+Version:	0.2.14
+Release:	1
 # GPL v2 in COPYING; GPL v1+ in license.txt; Artistic/Perl in lib/wmainfo.py
 License:	GPL
 Group:		X11/Applications/Multimedia
 Source0:	http://www.exaile.org/files/%{name}_%{version}.tar.gz
-# Source0-md5:	3caf9381691274a9de1fda203c43fb4f
+# Source0-md5:	5e569c084134abe13d651f804812b6fa
 URL:		http://www.exaile.org/
 BuildRequires:	gettext-devel
 BuildRequires:	intltool
@@ -66,7 +66,7 @@ Niektóre możliwości to:
 - przesyłanie ścieżek odtworzonych na iPodzie do last.fm
 
 %prep
-%setup -q -n %{name}_%{version}
+%setup -q
 
 # there's bigger and newer es.po
 rm -f po/es_ES.po

@@ -1,28 +1,27 @@
 # TODO:
 #	separate plugins/*
-#	segfault on exit (python: Python/pystate.c:563: PyGILState_Ensure: Assertion `autoInterpreterState' failed)
 #
 Summary:	A powerful GTK+2 media player
 Summary(pl.UTF-8):	Potężny odtwarzacz multimediów oparty na GTK+2
 Name:		exaile
-Version:	0.2.14
-Release:	2
+Version:	0.3.0.2
+Release:	1
 # GPL v2 in COPYING; GPL v1+ in license.txt; Artistic/Perl in lib/wmainfo.py
 License:	GPL
 Group:		X11/Applications/Multimedia
-Source0:	http://www.exaile.org/files/%{name}_%{version}.tar.gz
-# Source0-md5:	5e569c084134abe13d651f804812b6fa
+Source0:	http://launchpad.net/exaile/0.3.0/0.3.0.2/+download/%{name}-%{version}.tar.gz
+# Source0-md5:	6036291d14e0b77834e60bb6492ed3cc
 URL:		http://www.exaile.org/
 BuildRequires:	gettext-devel
 BuildRequires:	intltool
 BuildRequires:	python-pygtk-devel >= 2:2.8
+Requires:	gstreamer-plugins-base >= 0.10
+Requires:	gstreamer-plugins-good >= 0.10
 Requires:	python-dbus >= 0.71
 Requires:	python-gstreamer
 Requires:	python-mutagen
 Requires:	python-pygtk-glade >= 2:2.8
 Requires:	python-sqlite
-Requires:	gstreamer-plugins-base >= 0.10
-Requires:	gstreamer-plugins-good >= 0.10
 Suggests:	brasero
 Suggests:	k3b
 Suggests:	python-gnome-extras-mozilla
@@ -80,106 +79,28 @@ rm -f po/it_IT.po
 rm -f po/tr_TR.po
 
 %build
-%{__make}
+%{__make} \
+	PREFIX=/usr
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT%{_bindir}
-install -d $RPM_BUILD_ROOT%{python_sitearch}
-install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/data
-install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/images/default_theme
-install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/lib
-install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/plugins/{daap-share,didyouknow,httpserver,httpserver/data,icastplugin}
-install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/sql
-install -d $RPM_BUILD_ROOT%{_datadir}/%{name}/xl/{gui,media,panels,plugins}
-install -d $RPM_BUILD_ROOT%{_mandir}/man1
-install -d $RPM_BUILD_ROOT%{_desktopdir}
-install -d $RPM_BUILD_ROOT%{_pixmapsdir}
-
-cat > $RPM_BUILD_ROOT%{_bindir}/%{name} <<EOF
-#!/bin/sh
-cd %{_datadir}/%{name}
-exec python %{_datadir}/%{name}/exaile.py $@
-EOF
-
-install mmkeys.so $RPM_BUILD_ROOT%{python_sitearch}
-install exaile.1 $RPM_BUILD_ROOT%{_mandir}/man1
-install exaile.py $RPM_BUILD_ROOT%{_datadir}/%{name}
-install exaile.glade $RPM_BUILD_ROOT%{_datadir}/%{name}
-install equalizer.ini $RPM_BUILD_ROOT%{_datadir}/%{name}
-install data/settings_meta.ini $RPM_BUILD_ROOT%{_datadir}/%{name}/data
-install lib/*.py $RPM_BUILD_ROOT%{_datadir}/%{name}/lib
-install sql/*.sql $RPM_BUILD_ROOT%{_datadir}/%{name}/sql
-install plugins/*.py $RPM_BUILD_ROOT%{_datadir}/%{name}/plugins
-install plugins/daap-share/*.{py,glade} $RPM_BUILD_ROOT%{_datadir}/%{name}/plugins/daap-share
-install plugins/didyouknow/*.{py,glade} $RPM_BUILD_ROOT%{_datadir}/%{name}/plugins/didyouknow
-install plugins/httpserver/*.py $RPM_BUILD_ROOT%{_datadir}/%{name}/plugins/httpserver
-install plugins/httpserver/data/*.* $RPM_BUILD_ROOT%{_datadir}/%{name}/plugins/httpserver/data
-install plugins/icastplugin/*.{py,glade} $RPM_BUILD_ROOT%{_datadir}/%{name}/plugins/icastplugin
-install xl/*.py $RPM_BUILD_ROOT%{_datadir}/%{name}/xl
-install xl/gui/*.py $RPM_BUILD_ROOT%{_datadir}/%{name}/xl/gui
-install xl/media/*.py $RPM_BUILD_ROOT%{_datadir}/%{name}/xl/media
-install xl/panels/*.py $RPM_BUILD_ROOT%{_datadir}/%{name}/xl/panels
-install xl/plugins/*.py $RPM_BUILD_ROOT%{_datadir}/%{name}/xl/plugins
-install xl/plugins/*.glade $RPM_BUILD_ROOT%{_datadir}/%{name}/xl/plugins
-install images/*.png $RPM_BUILD_ROOT%{_datadir}/%{name}/images
-install images/default_theme/*.png \
-	$RPM_BUILD_ROOT%{_datadir}/%{name}/images/default_theme
-install images/largeicon.png $RPM_BUILD_ROOT%{_pixmapsdir}/%{name}.png
-install exaile.desktop $RPM_BUILD_ROOT%{_desktopdir}
-
-cd po
-for d in */LC_MESSAGES; do
-	install -d $RPM_BUILD_ROOT%{_localedir}/$d
-	install $d/exaile.mo $RPM_BUILD_ROOT%{_localedir}/$d
-done
-cd ..
-
-%find_lang %{name}
+%{__make} install \
+	PREFIX=/usr \
+	DESTDIR=$RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files -f %{name}.lang
+%files
 %defattr(644,root,root,755)
-%doc changelog
 %attr(755,root,root) %{_bindir}/%{name}
+%dir %{_sysconfdir}/xdg/exaile
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/xdg/exaile/settings.ini
+%{_desktopdir}/%{name}.desktop
+%{_pixmapsdir}/%{name}.png
+%{_libdir}/%{name}
 %dir %{_datadir}/%{name}
-%attr(755,root,root) %{_datadir}/%{name}/exaile.py
-%{_datadir}/%{name}/exaile.glade
-%attr(755,root,root) %{python_sitearch}/mmkeys.so
-%dir %{_datadir}/%{name}/data
-%{_datadir}/%{name}/data/settings_meta.ini
-%{_datadir}/%{name}/equalizer.ini
-%{_datadir}/%{name}/images
-%dir %{_datadir}/%{name}/plugins
-%{_datadir}/%{name}/plugins/*.py
-%dir %{_datadir}/%{name}/plugins/daap-share
-%{_datadir}/%{name}/plugins/daap-share/*.*
-%dir %{_datadir}/%{name}/plugins/didyouknow
-%{_datadir}/%{name}/plugins/didyouknow/*.*
-%dir %{_datadir}/%{name}/plugins/httpserver
-%{_datadir}/%{name}/plugins/httpserver/*.*
-%dir %{_datadir}/%{name}/plugins/httpserver/data
-%{_datadir}/%{name}/plugins/httpserver/data/*.*
-%dir %{_datadir}/%{name}/plugins/icastplugin
-%{_datadir}/%{name}/plugins/icastplugin/*.*
-%dir %{_datadir}/%{name}/lib
-%{_datadir}/%{name}/lib/*.py
-%dir %{_datadir}/%{name}/sql
-%{_datadir}/%{name}/sql/*.sql
-%dir %{_datadir}/%{name}/xl
-%{_datadir}/%{name}/xl/*.py
-%dir %{_datadir}/%{name}/xl/gui
-%{_datadir}/%{name}/xl/gui/*.py
-%dir %{_datadir}/%{name}/xl/media
-%{_datadir}/%{name}/xl/media/*.py
-%dir %{_datadir}/%{name}/xl/panels
-%{_datadir}/%{name}/xl/panels/*.py
-%dir %{_datadir}/%{name}/xl/plugins
-%{_datadir}/%{name}/xl/plugins/*.py
-%{_datadir}/%{name}/xl/plugins/plugins.glade
-%{_desktopdir}/*.desktop
-%{_mandir}/man1/exaile.1*
-%{_pixmapsdir}/*
+%{_datadir}/%{name}/data
+# maybe seperate subpackages for plugins?
+%{_datadir}/%{name}/plugins

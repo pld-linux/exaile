@@ -80,14 +80,24 @@ rm -f po/tr_TR.po
 
 %build
 %{__make} \
-	PREFIX=/usr
+	PREFIX=/usr \
+%ifarch x86_64
+	LIBINSTALLDIR=/lib64
+%else
+	LIBINSTALLDIR=/lib
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	PREFIX=/usr \
-	DESTDIR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT \
+%ifarch x86_64
+	LIBINSTALLDIR=/lib64
+%else
+	LIBINSTALLDIR=/lib
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT

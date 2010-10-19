@@ -15,6 +15,7 @@ URL:		http://www.exaile.org/
 BuildRequires:	gettext-devel
 BuildRequires:	intltool
 BuildRequires:	python-pygtk-devel >= 2:2.18.0
+BuildRequires:	rpmbuild(macros) >= 1.268
 Requires:	gstreamer-plugins-base >= 0.10
 Requires:	gstreamer-plugins-good >= 0.10
 Requires:	python-dbus >= 0.71
@@ -100,18 +101,21 @@ rm -rf $RPM_BUILD_ROOT
 	LIBINSTALLDIR=/lib
 %endif
 
+%find_lang %{name} --all-name
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files
+%files -f %{name}.lang
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/%{name}
 %dir %{_sysconfdir}/xdg/exaile
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/xdg/exaile/settings.ini
-%{_desktopdir}/%{name}.desktop
-%{_pixmapsdir}/%{name}.png
 %{_libdir}/%{name}
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/data
+%{_desktopdir}/%{name}.desktop
+%{_pixmapsdir}/%{name}.png
+%{_mandir}/man1/exaile.1
 # maybe seperate subpackages for plugins?
 %{_datadir}/%{name}/plugins

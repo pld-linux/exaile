@@ -5,7 +5,7 @@ Summary:	A powerful GTK+2 media player
 Summary(pl.UTF-8):	Potężny odtwarzacz multimediów oparty na GTK+2
 Name:		exaile
 Version:	0.3.2.0
-Release:	1
+Release:	2
 # GPL v2 in COPYING; GPL v1+ in license.txt; Artistic/Perl in lib/wmainfo.py
 License:	GPL
 Group:		X11/Applications/Multimedia
@@ -85,6 +85,9 @@ rm -rf $RPM_BUILD_ROOT
 	PREFIX=%{_prefix} \
 	DESTDIR=$RPM_BUILD_ROOT \
 	LIBINSTALLDIR=/%{_lib}
+
+# unsupported
+rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/zh
 
 %find_lang %{name} --all-name
 

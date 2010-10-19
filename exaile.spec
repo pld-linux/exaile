@@ -4,23 +4,24 @@
 Summary:	A powerful GTK+2 media player
 Summary(pl.UTF-8):	Potężny odtwarzacz multimediów oparty na GTK+2
 Name:		exaile
-Version:	0.3.0.2
+Version:	0.3.2.0
 Release:	1
 # GPL v2 in COPYING; GPL v1+ in license.txt; Artistic/Perl in lib/wmainfo.py
 License:	GPL
 Group:		X11/Applications/Multimedia
-Source0:	http://launchpad.net/exaile/0.3.0/0.3.0.2/+download/%{name}-%{version}.tar.gz
-# Source0-md5:	6036291d14e0b77834e60bb6492ed3cc
+Source0:	http://launchpad.net/exaile/0.3.2/0.3.2.0/+download/%{name}-%{version}.tar.gz
+# Source0-md5:	fdd1f75118032a5aa0932cb449b2c533
 URL:		http://www.exaile.org/
 BuildRequires:	gettext-devel
 BuildRequires:	intltool
-BuildRequires:	python-pygtk-devel >= 2:2.8
+BuildRequires:	python-pygtk-devel >= 2:2.18.0
 Requires:	gstreamer-plugins-base >= 0.10
 Requires:	gstreamer-plugins-good >= 0.10
 Requires:	python-dbus >= 0.71
 Requires:	python-gstreamer
 Requires:	python-mutagen
-Requires:	python-pygtk-glade >= 2:2.8
+Requires:	python-pygobject >= 2.26.0
+Requires:	python-pygtk-glade >= 2:2.18.0
 Requires:	python-sqlite
 Suggests:	brasero
 Suggests:	k3b
@@ -80,7 +81,7 @@ rm -f po/tr_TR.po
 
 %build
 %{__make} \
-	PREFIX=/usr \
+	PREFIX=%{_prefix} \
 %ifarch x86_64
 	LIBINSTALLDIR=/lib64
 %else
@@ -91,7 +92,7 @@ rm -f po/tr_TR.po
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
-	PREFIX=/usr \
+	PREFIX=%{_prefix} \
 	DESTDIR=$RPM_BUILD_ROOT \
 %ifarch x86_64
 	LIBINSTALLDIR=/lib64

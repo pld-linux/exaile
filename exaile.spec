@@ -13,6 +13,7 @@ Source0:	http://launchpad.net/exaile/0.3.2/0.3.2.0/+download/%{name}-%{version}.
 # Source0-md5:	fdd1f75118032a5aa0932cb449b2c533
 URL:		http://www.exaile.org/
 BuildRequires:	gettext-devel
+BuildRequires:	help2man
 BuildRequires:	intltool
 BuildRequires:	python-pygtk-devel >= 2:2.18.0
 BuildRequires:	rpmbuild(macros) >= 1.268
@@ -69,25 +70,13 @@ Niektóre możliwości to:
 %prep
 %setup -q
 
-# there's bigger and newer es.po
-rm -f po/es_ES.po
-# what's Franco-Provençal?
-rm -f po/frp.po
-# there's bigger and newer he.po
-rm -f po/he_IL.po
-# there's bigger and newer it.po
-rm -f po/it_IT.po
-# there's bigger and newer tr.po
-rm -f po/tr_TR.po
+# useless, there are bigger correspondent locales
+rm -f po/{es_ES.po,frp.po,he_IL.po,it_IT.po,tr_TR.po}
 
 %build
 %{__make} \
 	PREFIX=%{_prefix} \
-%ifarch x86_64
-	LIBINSTALLDIR=/lib64
-%else
-	LIBINSTALLDIR=/lib
-%endif
+	LIBINSTALLDIR=/%{_lib}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -95,11 +84,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	PREFIX=%{_prefix} \
 	DESTDIR=$RPM_BUILD_ROOT \
-%ifarch x86_64
-	LIBINSTALLDIR=/lib64
-%else
-	LIBINSTALLDIR=/lib
-%endif
+	LIBINSTALLDIR=/%{_lib}
 
 %find_lang %{name} --all-name
 
@@ -116,6 +101,6 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/%{name}/data
 %{_desktopdir}/%{name}.desktop
 %{_pixmapsdir}/%{name}.png
-%{_mandir}/man1/exaile.1
+%{_mandir}/man1/exaile.1*
 # maybe seperate subpackages for plugins?
 %{_datadir}/%{name}/plugins

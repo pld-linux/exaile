@@ -16,6 +16,7 @@ BuildRequires:	gettext-devel
 BuildRequires:	help2man
 BuildRequires:	intltool
 BuildRequires:	python-pygtk-devel >= 2:2.18.0
+BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.268
 Requires:	gstreamer-plugins-base >= 0.10
 Requires:	gstreamer-plugins-good >= 0.10

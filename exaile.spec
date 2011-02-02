@@ -18,6 +18,7 @@ BuildRequires:	intltool
 BuildRequires:	python-pygtk-devel >= 2:2.18.0
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.268
+BuildRequires:	which
 Requires:	gstreamer-plugins-base >= 0.10
 Requires:	gstreamer-plugins-good >= 0.10
 Requires:	python-dbus >= 0.71

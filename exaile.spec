@@ -32,6 +32,7 @@ Suggests:	gstreamer-audiosink
 Suggests:	gstreamer-mad
 Suggests:	k3b
 Suggests:	python-gnome-extras-mozilla
+Suggests:	python-gpod
 Suggests:	serpentine
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -91,7 +92,7 @@ rm -rf $RPM_BUILD_ROOT
 	LIBINSTALLDIR=/%{_lib}
 
 # unsupported
-%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/zh
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/zh
 
 %find_lang %{name} --all-name
 

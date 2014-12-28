@@ -12,7 +12,7 @@ Group:		X11/Applications/Multimedia
 Source0:	http://launchpad.net/exaile/0.3.2/%{version}/+download/%{name}-%{version}.tar.gz
 # Source0-md5:	b3fd87e40af6592df0b511183ca49408
 URL:		http://www.exaile.org/
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	help2man
 BuildRequires:	intltool
 BuildRequires:	python-pygtk-devel >= 2:2.18.0

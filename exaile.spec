@@ -1,44 +1,42 @@
 #
 # TODO:	- separate plugins/*
 #
-Summary:	A powerful GTK+2 media player
-Summary(pl.UTF-8):	Potężny odtwarzacz multimediów oparty na GTK+2
+Summary:	A powerful GTK+3 media player
+Summary(pl.UTF-8):	Potężny odtwarzacz multimediów oparty na GTK+3
 Name:		exaile
-Version:	0.3.2.2
+Version:	4.1.1
 Release:	1
 # GPL v2 in COPYING; GPL v1+ in license.txt; Artistic/Perl in lib/wmainfo.py
 License:	GPL
 Group:		X11/Applications/Multimedia
-Source0:	http://launchpad.net/exaile/0.3.2/%{version}/+download/%{name}-%{version}.tar.gz
-# Source0-md5:	b3fd87e40af6592df0b511183ca49408
-URL:		http://www.exaile.org/
+Source0:	https://github.com/exaile/exaile/releases/download/%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	e65089a19b038024a6b342db7eec06af
+URL:		https://exaile.org/
 BuildRequires:	gettext-tools
 BuildRequires:	help2man
-BuildRequires:	intltool
-BuildRequires:	python-pygtk-devel >= 2:2.18.0
+BuildRequires:	python3 >= 3.6
+BuildRequires:	python3-pygobject3
 BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.268
-BuildRequires:	which
-Requires:	gstreamer-plugins-base >= 0.10
-Requires:	gstreamer-plugins-good >= 0.10
-Requires:	python-dbus >= 0.71
-Requires:	python-gstreamer
-Requires:	python-mutagen
-Requires:	python-pygobject >= 2.26.0
-Requires:	python-pygtk-glade >= 2:2.18.0
-Requires:	python-sqlite
-Suggests:	brasero
-Suggests:	gstreamer-audiosink
-Suggests:	gstreamer-mad
-Suggests:	k3b
-Suggests:	python-gnome-extras-mozilla
-Suggests:	python-gpod
-Suggests:	serpentine
+BuildRequires:	rpmbuild(macros) >= 2.000
+Requires:	gstreamer
+Requires:	gstreamer-plugins-good
+Requires:	librsvg
+Requires:	python3-bsddb3
+Requires:	python3-dbus
+Requires:	python3-feedparser
+Requires:	python3-mutagen >= 1.10
+Requires:	python3-pycairo
+Requires:	python3-pygobject3
+Recommends:	gstreamer-plugins-bad
+Recommends:	gstreamer-plugins-ugly
+Recommends:	python3-pillow
+Recommends:	udisks2
+BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 Exaile is a media player aiming to be similar to KDE's AmaroK, but for
-GTK+2. It incorporates many of the cool things from AmaroK (and other
+GTK+3. It incorporates many of the cool things from AmaroK (and other
 media players).
 
 Some of the features are:
@@ -56,7 +54,7 @@ Some of the features are:
 
 %description -l pl.UTF-8
 Exaile to odtwarzacz multimediów mający być podobny do AmaroKa, ale
-dla GTK+2. Łączy wiele dobrych cech AmaroKa (i innych odtwarzaczy
+dla GTK+3. Łączy wiele dobrych cech AmaroKa (i innych odtwarzaczy
 multimediów).
 
 Niektóre możliwości to:
@@ -72,6 +70,32 @@ Niektóre możliwości to:
 - ściąganie tabulatur gitarowych z fretplay.com
 - przesyłanie ścieżek odtworzonych na iPodzie do last.fm
 
+%package -n bash-completion-%{name}
+Summary:	Bash completion for exaile music player
+Summary(pl.UTF-8):	Bashowe dopełnianie parametrów odtwarzacza muzyki exaile
+Group:		Applications/Shells
+Requires:	%{name} = %{version}-%{release}
+Requires:	bash-completion >= 2.0
+
+%description -n bash-completion-%{name}
+Bash completion for exaile.
+
+%description -n bash-completion-%{name} -l pl.UTF-8
+Bashowe dopełnianie parametrów odtwarzacza muzyki exaile.
+
+%package -n fish-completion-%{name}
+Summary:	Fish completion for exaile music player
+Summary(pl.UTF-8):	Dopełnianie parametrów w fish dla odtwarzacza muzyki exaile
+Group:		Applications/Shells
+Requires:	%{name} = %{version}-%{release}
+Requires:	fish
+
+%description -n fish-completion-%{name}
+Fish completion for exaile music player.
+
+%description -n fish-completion-%{name} -l pl.UTF-8
+Dopełnianie parametrów w fish dla odtwarzacza muzyki exaile.
+
 %prep
 %setup -q
 
@@ -81,7 +105,7 @@ Niektóre możliwości to:
 %build
 %{__make} \
 	PREFIX=%{_prefix} \
-	LIBINSTALLDIR=/%{_lib}
+	LIBINSTALLDIR=/%{_libdir}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -89,10 +113,10 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	PREFIX=%{_prefix} \
 	DESTDIR=$RPM_BUILD_ROOT \
-	LIBINSTALLDIR=/%{_lib}
+	LIBINSTALLDIR=/%{_libdir}
 
 # unsupported
-%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/zh
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{ie,zh}
 
 %find_lang %{name} --all-name
 
@@ -105,6 +129,8 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_sysconfdir}/xdg/exaile
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/xdg/exaile/settings.ini
 %{_libdir}/%{name}
+%{_datadir}/appdata/exaile.appdata.xml
+%{_datadir}/dbus-1/services/org.exaile.Exaile.service
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/data
 %{_desktopdir}/%{name}.desktop
@@ -112,3 +138,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/exaile.1*
 # maybe seperate subpackages for plugins?
 %{_datadir}/%{name}/plugins
+
+%files -n bash-completion-%{name}
+%defattr(644,root,root,755)
+%{bash_compdir}/%{name}
+
+%files -n fish-completion-%{name}
+%defattr(644,root,root,755)
+%{fish_compdir}/%{name}.fish

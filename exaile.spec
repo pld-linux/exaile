@@ -5,7 +5,7 @@ Summary:	A powerful GTK+3 media player
 Summary(pl.UTF-8):	Potężny odtwarzacz multimediów oparty na GTK+3
 Name:		exaile
 Version:	4.1.1
-Release:	1
+Release:	2
 # GPL v2 in COPYING; GPL v1+ in license.txt; Artistic/Perl in lib/wmainfo.py
 License:	GPL
 Group:		X11/Applications/Multimedia
@@ -105,7 +105,7 @@ Dopełnianie parametrów w fish dla odtwarzacza muzyki exaile.
 %build
 %{__make} \
 	PREFIX=%{_prefix} \
-	LIBINSTALLDIR=/%{_libdir}
+	LIBINSTALLDIR=/%{_datadir}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -113,7 +113,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	PREFIX=%{_prefix} \
 	DESTDIR=$RPM_BUILD_ROOT \
-	LIBINSTALLDIR=/%{_libdir}
+	LIBINSTALLDIR=/%{_datadir}
 
 # unsupported
 %{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{ie,zh}
@@ -128,10 +128,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/%{name}
 %dir %{_sysconfdir}/xdg/exaile
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/xdg/exaile/settings.ini
-%{_libdir}/%{name}
+%dir %{_datadir}/%{name}
+%{_datadir}/%{name}
 %{_datadir}/appdata/exaile.appdata.xml
 %{_datadir}/dbus-1/services/org.exaile.Exaile.service
-%dir %{_datadir}/%{name}
 %{_datadir}/%{name}/data
 %{_desktopdir}/%{name}.desktop
 %{_pixmapsdir}/%{name}.png

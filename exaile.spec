@@ -4,13 +4,14 @@
 Summary:	A powerful GTK+3 media player
 Summary(pl.UTF-8):	Potężny odtwarzacz multimediów oparty na GTK+3
 Name:		exaile
-Version:	4.1.1
-Release:	3
+Version:	4.1.2
+Release:	0.3
 # GPL v2 in COPYING; GPL v1+ in license.txt; Artistic/Perl in lib/wmainfo.py
 License:	GPL
 Group:		X11/Applications/Multimedia
 Source0:	https://github.com/exaile/exaile/releases/download/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	e65089a19b038024a6b342db7eec06af
+# Source0-md5:	ff59fc1a6fbd3967338479d570ba3f51
+Patch0:		xl_common_py.patch
 URL:		https://exaile.org/
 BuildRequires:	gettext-tools
 BuildRequires:	help2man
@@ -18,19 +19,21 @@ BuildRequires:	python3 >= 3.6
 BuildRequires:	python3-pygobject3
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 2.000
+BuildConflicts:	python3-bsddb3
 Requires:	gstreamer
 Requires:	gstreamer-plugins-good
 Requires:	librsvg
-Requires:	python3-bsddb3
+Requires:	python3-berkeleydb
 Requires:	python3-dbus
 Requires:	python3-feedparser
-Requires:	python3-mutagen >= 1.10
+Requires:	python3-mutagen >= 1.42.0-8
 Requires:	python3-pycairo
 Requires:	python3-pygobject3
 Recommends:	gstreamer-plugins-bad
 Recommends:	gstreamer-plugins-ugly
 Recommends:	python3-pillow
 Recommends:	udisks2
+Conflicts:	python3-bsddb3
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -98,6 +101,7 @@ Dopełnianie parametrów w fish dla odtwarzacza muzyki exaile.
 
 %prep
 %setup -q
+%patch0 -p0
 
 # useless, there are bigger correspondent locales
 %{__rm} po/frp.po
@@ -116,7 +120,7 @@ rm -rf $RPM_BUILD_ROOT
 	LIBINSTALLDIR=/%{_datadir}
 
 # unsupported
-%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{ie,zh}
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{cy,kk,ie,ur}
 
 %find_lang %{name} --all-name
 
@@ -128,16 +132,12 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/%{name}
 %dir %{_sysconfdir}/xdg/exaile
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/xdg/exaile/settings.ini
-%dir %{_datadir}/%{name}
 %{_datadir}/%{name}
-%{_datadir}/appdata/exaile.appdata.xml
+%{_datadir}/metainfo/exaile.appdata.xml
 %{_datadir}/dbus-1/services/org.exaile.Exaile.service
-%{_datadir}/%{name}/data
 %{_desktopdir}/%{name}.desktop
 %{_pixmapsdir}/%{name}.png
 %{_mandir}/man1/exaile.1*
-# maybe seperate subpackages for plugins?
-%{_datadir}/%{name}/plugins
 
 %files -n bash-completion-%{name}
 %defattr(644,root,root,755)

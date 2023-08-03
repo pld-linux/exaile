@@ -4,14 +4,13 @@
 Summary:	A powerful GTK+3 media player
 Summary(pl.UTF-8):	Potężny odtwarzacz multimediów oparty na GTK+3
 Name:		exaile
-Version:	4.1.2
+Version:	4.1.3
 Release:	1
 # GPL v2 in COPYING; GPL v1+ in license.txt; Artistic/Perl in lib/wmainfo.py
 License:	GPL
 Group:		X11/Applications/Multimedia
 Source0:	https://github.com/exaile/exaile/releases/download/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	ff59fc1a6fbd3967338479d570ba3f51
-Patch0:		xl_common_py.patch
+# Source0-md5:	cb43a90e9a0526fa455cab4628470260
 URL:		https://exaile.org/
 BuildRequires:	gettext-tools
 BuildRequires:	help2man
@@ -25,7 +24,9 @@ Requires:	gstreamer-plugins-good
 Requires:	librsvg
 Requires:	python3-berkeleydb
 Requires:	python3-dbus
+Requires:	python3-discid
 Requires:	python3-feedparser
+Requires:	python3-musicbrainzngs
 Requires:	python3-mutagen >= 1.42.0-8
 Requires:	python3-pycairo
 Requires:	python3-pygobject3
@@ -100,7 +101,6 @@ Dopełnianie parametrów w fish dla odtwarzacza muzyki exaile.
 
 %prep
 %setup -q
-%patch0 -p0
 
 # useless, there are bigger correspondent locales
 %{__rm} po/frp.po
@@ -119,7 +119,7 @@ rm -rf $RPM_BUILD_ROOT
 	LIBINSTALLDIR=/%{_datadir}
 
 # unsupported
-%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{cy,kk,ie,ur}
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{cy,kk,ie,ur,zh}
 
 %find_lang %{name} --all-name
 
@@ -135,7 +135,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/metainfo/exaile.appdata.xml
 %{_datadir}/dbus-1/services/org.exaile.Exaile.service
 %{_desktopdir}/%{name}.desktop
-%{_pixmapsdir}/%{name}.png
+%{_iconsdir}/hicolor/*x*/apps/exaile.png
+%{_iconsdir}/hicolor/scalable/apps/exaile.svg
 %{_mandir}/man1/exaile.1*
 
 %files -n bash-completion-%{name}

@@ -4,13 +4,13 @@
 Summary:	A powerful GTK+3 media player
 Summary(pl.UTF-8):	Potężny odtwarzacz multimediów oparty na GTK+3
 Name:		exaile
-Version:	4.1.3
+Version:	4.1.4
 Release:	1
 # GPL v2 in COPYING; GPL v1+ in license.txt; Artistic/Perl in lib/wmainfo.py
 License:	GPL
 Group:		X11/Applications/Multimedia
 Source0:	https://github.com/exaile/exaile/releases/download/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	cb43a90e9a0526fa455cab4628470260
+# Source0-md5:	1b378662752824764ea51eb620118f79
 URL:		https://exaile.org/
 BuildRequires:	gettext-tools
 BuildRequires:	help2man
@@ -30,6 +30,8 @@ Requires:	python3-musicbrainzngs
 Requires:	python3-mutagen >= 1.42.0-8
 Requires:	python3-pycairo
 Requires:	python3-pygobject3
+Requires(post,postun):	desktop-file-utils
+Requires(post,postun):	gtk-update-icon-cache
 Recommends:	gstreamer-plugins-bad
 Recommends:	gstreamer-plugins-ugly
 Recommends:	python3-pillow
@@ -98,6 +100,14 @@ Fish completion for exaile music player.
 
 %description -n fish-completion-%{name} -l pl.UTF-8
 Dopełnianie parametrów w fish dla odtwarzacza muzyki exaile.
+
+%post
+%update_icon_cache hicolor
+%update_desktop_database_post
+
+%postun
+%update_icon_cache hicolor
+%update_desktop_database_postun
 
 %prep
 %setup -q

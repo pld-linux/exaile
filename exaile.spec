@@ -4,13 +4,13 @@
 Summary:	A powerful GTK+3 media player
 Summary(pl.UTF-8):	Potężny odtwarzacz multimediów oparty na GTK+3
 Name:		exaile
-Version:	4.2.0
+Version:	4.2.1
 Release:	1
 # GPL v2 in COPYING; GPL v1+ in license.txt; Artistic/Perl in lib/wmainfo.py
 License:	GPL
 Group:		X11/Applications/Multimedia
 Source0:	https://github.com/exaile/exaile/releases/download/%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	268fa1ecd180b96e218be1767accb79b
+# Source0-md5:	7f0d50c3ed5a85326e138e176069e609
 URL:		https://exaile.org/
 BuildRequires:	gettext-tools
 BuildRequires:	help2man
